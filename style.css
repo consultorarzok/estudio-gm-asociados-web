@@ -275,18 +275,10 @@ section{padding:clamp(80px,11vw,150px) 0;position:relative}
 .mundo .acciones{display:flex;flex-wrap:wrap;gap:14px}
 .mundo .btn{--hover:#fff}.mundo .btn:hover{color:var(--oscuro)}
 .mundo .btn.linea{color:#fff}
-.orbitas{width:100%;max-width:520px;justify-self:center;aspect-ratio:1}
-.orbitas circle.aro{fill:none;stroke:rgba(199,162,84,.45);stroke-width:1}
-.orbitas circle.aro.d{stroke-dasharray:2 6}
-.orbitas .ruta{fill:none;stroke:var(--dorado);stroke-width:1.2;stroke-dasharray:4 7;animation:fluir 2.6s linear infinite}
-.orbitas .punto{fill:var(--dorado)}
-.orbitas .centro{fill:var(--bordo);stroke:var(--dorado);stroke-width:2}
-.orbitas .pulso{fill:none;stroke:var(--dorado);stroke-width:1.2;transform-origin:260px 260px;animation:pulso 3.2s var(--ease) infinite}
-.orbitas text{font:600 15px Poppins,sans-serif;fill:#fff;letter-spacing:.5px}
-.orbitas .giro{transform-origin:260px 260px;animation:girar 90s linear infinite}
+.orbitas{display:block;width:100%;max-width:600px;justify-self:center;aspect-ratio:1}
 @keyframes fluir{to{stroke-dashoffset:-22}}
 @keyframes pulso{0%{transform:scale(.4);opacity:.9}100%{transform:scale(2.6);opacity:0}}
-@media (max-width:900px){.mundo .wrap{grid-template-columns:1fr}.orbitas{max-width:360px;order:-1}.mundo li{grid-template-columns:1fr;gap:4px}}
+@media (max-width:900px){.mundo .wrap{grid-template-columns:1fr}.orbitas{max-width:420px;order:-1}.mundo li{grid-template-columns:1fr;gap:4px}}
 
 /* preguntas */
 .preguntas .wrap{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(36px,6vw,96px);align-items:start}

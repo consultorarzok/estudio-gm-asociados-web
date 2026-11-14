@@ -161,6 +161,7 @@ def head(title, desc, path, depth, lang="es", schema=None, alternates=None, prel
 {pre}<link rel="stylesheet" href="{p}style.css?v={VER}">
 <script>(function(r){{r.classList.add('js');try{{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&sessionStorage.getItem('gm-intro')!=='1'){{{intro}}}}}catch(e){{}}}})(document.documentElement)</script>
 <script src="{p}main.js?v={VER}" defer></script>
+<script src="{p}mundo.js?v={VER}" defer></script>
 {sch}</head>
 <body>
 """
@@ -358,20 +359,7 @@ def home():
     write("index.html", s)
 
 # Órbitas: el doble aro del sello, con rutas que llegan a Jujuy desde afuera
-ORBITAS = '''<svg class="orbitas" viewBox="0 0 520 520" role="img" aria-label="Rutas desde distintos lugares del mundo que llegan a Jujuy">
-<circle class="aro" cx="260" cy="260" r="236"/><circle class="aro d" cx="260" cy="260" r="222"/>
-<circle class="aro" cx="260" cy="260" r="160"/><circle class="aro d" cx="260" cy="260" r="96"/>
-<g class="giro">
-<path class="ruta" d="M60 140 Q170 150 260 260"/><circle class="punto" cx="60" cy="140" r="5"/>
-<path class="ruta" d="M470 170 Q360 170 260 260"/><circle class="punto" cx="470" cy="170" r="5"/>
-<path class="ruta" d="M420 440 Q330 360 260 260"/><circle class="punto" cx="420" cy="440" r="5"/>
-<path class="ruta" d="M90 410 Q170 330 260 260"/><circle class="punto" cx="90" cy="410" r="5"/>
-<path class="ruta" d="M260 26 Q250 150 260 260"/><circle class="punto" cx="260" cy="26" r="5"/>
-</g>
-<circle class="pulso" cx="260" cy="260" r="30"/>
-<circle class="centro" cx="260" cy="260" r="30"/>
-<text x="260" y="320" text-anchor="middle">Jujuy</text>
-</svg>'''
+ORBITAS = '''<canvas id="mundo-cv" class="orbitas" role="img" aria-label="Globo digital con rutas desde distintos lugares del mundo que llegan a Jujuy, resaltado en dorado"></canvas>'''
 
 # ---------------- ÁREAS ----------------
 def area_page(a):
