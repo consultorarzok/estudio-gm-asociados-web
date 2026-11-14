@@ -264,7 +264,7 @@ def home():
 <p class="bajada">Somos el Estudio Jurídico GM &amp; Asociados. Tres abogadas que te escuchan, te explican con palabras simples y te acompañan en toda la Provincia de Jujuy.</p>
 <div class="acciones"><a class="btn" href="{WA_GENERAL}" target="_blank" rel="noopener">{I_WA}Consultanos por WhatsApp</a><a class="btn linea" href="#areas">Ver en qué te ayudamos</a></div>
 <p class="lugares"><span>{I_PIN}Independencia 658, San Salvador de Jujuy</span><span>{I_PIN}Sarmiento 520, El Carmen</span></p>
-</div>{sello(p)}</div>
+</div></div>
 </section>
 
 <section class="manifiesto"><div class="wrap">

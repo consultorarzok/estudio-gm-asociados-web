@@ -55,7 +55,7 @@ p{max-width:68ch}
 .top.solid{background:rgba(245,240,231,.94);backdrop-filter:saturate(1.2) blur(10px);-webkit-backdrop-filter:saturate(1.2) blur(10px);color:var(--carbon);box-shadow:0 1px 0 var(--crema-2)}
 .top.oculto{transform:translateY(-100%)}
 .marca{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:600;font-size:.95rem;line-height:1.15;letter-spacing:-.01em}
-.marca .logos{position:relative;width:50px;height:50px;flex:none}
+.marca .logos{position:relative;width:58px;height:58px;flex:none}
 .marca img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .4s}
 .marca .l-color{opacity:0}
 .top.solid .l-color{opacity:1}.top.solid .l-blanco{opacity:0}
@@ -152,9 +152,9 @@ section{padding:clamp(80px,11vw,150px) 0;position:relative}
 .manifiesto .arco{--ar:1/1.05;max-width:440px;justify-self:end;width:100%}
 @media (max-width:900px){.manifiesto .wrap>.fila{grid-template-columns:1fr}.manifiesto .arco{justify-self:center;max-width:380px}}
 .manifiesto p{font-size:clamp(1.6rem,3.6vw,3rem);font-weight:500;letter-spacing:-.025em;line-height:1.22;max-width:30ch;color:var(--bordo)}
-.manifiesto .w{transition:opacity .25s linear}
-.js .manifiesto .w{opacity:.16}
-.js .manifiesto .w.on{opacity:1}
+.manifiesto .w{transition:color .35s linear}
+.js .manifiesto .w{color:#6B625A}
+.js .manifiesto .w.on{color:var(--bordo)}
 .datos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 48px;margin-top:clamp(56px,7vw,96px)}
 .datos div{border-top:1.5px solid var(--dorado);padding-top:20px}
 .datos dt{font-weight:600;color:var(--bordo);font-size:1.08rem}
@@ -329,7 +329,7 @@ section{padding:clamp(80px,11vw,150px) 0;position:relative}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
-  .js .manifiesto .w{opacity:1}
+  .js .manifiesto .w{color:var(--bordo)}
   .js .sube,.js .revela .foto{opacity:1;transform:none;clip-path:none}
   .js .revela::before{clip-path:none}
   .js .pasos{--prog:1}
