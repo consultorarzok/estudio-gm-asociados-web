@@ -39,3 +39,11 @@ save(grade(Image.open(SRC+'g2.jpg').convert('RGB').crop((0,0,2350,1600))),'reuni
 save(grade(Image.open(SRC+'fer4.jpg').convert('RGB')),'estudio-lectura',[700,1200])
 # fondo del hero: las tres trabajando (elegida por Zeta)
 save(grade(Image.open(SRC+'g1.jpg').convert('RGB')),'portada-equipo',[900,1600,2400])
+# recortes cuadrados centrados en la cara, para los retratos circulares (abogada sola)
+def circ(src, box, name):
+    im=grade(Image.open(SRC+src).convert('RGB').crop(box))
+    save(im, name, [400, 760])
+circ('fer3.jpg',(440,0,900,460),'circ-tapia')
+circ('l.jpg',(347,0,827,480),'circ-gutierrez')
+circ('carla3.jpg',(366,25,1716,1375),'circ-morales')
+circ('fer4.jpg',(530,20,1330,820),'circ-tapia-lectura')

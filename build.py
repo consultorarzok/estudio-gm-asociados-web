@@ -100,9 +100,16 @@ def pic(name, widths, sizes, alt, cls="", eager=False, pos=None, w=None, h=None)
     wh = f' width="{w}" height="{h}"' if w else ""
     return f'<img src="{P}img/{name}-{widths[-1]}.webp" srcset="{srcset}" sizes="{sizes}" alt="{esc(alt)}"{wh}{extra}{st}{cls}>'
 
-def arco(name, widths, sizes, alt, pos=None, extra_cls="", ar=None, w=640, h=800):
-    st = f' style="--ar:{ar}"' if ar else ""
-    return f'<div class="arco revela {extra_cls}"{st}><div class="foto para">{pic(name, widths, sizes, alt, pos=pos, w=w, h=h)}</div></div>'
+def cuadro(name, widths, sizes, alt, pos=None, ar="4/5", w=700, h=875, extra=""):
+    """Foto de EQUIPO: rectángulo con sombra y marco dorado desplazado."""
+    return f'<figure class="cuadro revela {extra}" style="--ar:{ar}"><div class="foto para">{pic(name, widths, sizes, alt, pos=pos, w=w, h=h)}</div></figure>'
+
+ARO = '<svg class="aro2" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="49.3"/></svg>'
+
+def retrato(name, alt, chapa=None, extra="", sizes="(max-width:800px) 80vw, 420px"):
+    """Foto de UNA abogada: círculo con doble aro dorado (eco del sello del logo)."""
+    ch = f'<span class="chapa">{chapa}</span>' if chapa else ""
+    return f'<figure class="retrato revela {extra}"><span class="aro"></span>{ARO}<div class="foto">{pic(name, [400, 760], sizes, alt, w=760, h=760)}</div>{ch}</figure>'
 
 def sello(p):
     return f'''<div class="sello" aria-hidden="true"><svg class="texto" viewBox="0 0 120 120"><defs><path id="circ" d="M60 60 m-48 0 a48 48 0 1 1 96 0 a48 48 0 1 1 -96 0"/></defs><text><textPath href="#circ" textLength="296" lengthAdjust="spacing">ESTUDIO JURÍDICO • GM &amp; ASOCIADOS • JUJUY •</textPath></text></svg><img src="{p}img/logo-gm.png" alt="" width="62" height="58"></div>'''
@@ -244,7 +251,7 @@ def home():
     global P
     p = P = ""
     abogadas = "".join(f"""<article class="abogada">
-{arco(e['img'], [480, 900], '(max-width:800px) 90vw, 470px', e['alt'], pos=e['pos'])}
+{retrato('circ-' + e['img'][4:], e['alt'], 'M.P. ' + e['mp'])}
 <div class="sube"><h3>{e['nombre']}</h3><p class="mp">Abogada · Matrícula profesional {e['mp']}</p>
 <blockquote>{e['frase']}</blockquote>
 <a class="btn" href="{wa('Hola, quisiera hacer una consulta con la ' + e['corto'] + '.')}" target="_blank" rel="noopener">{I_WA}Escribile a la {e['corto']}</a></div>
@@ -270,7 +277,7 @@ def home():
 <section class="manifiesto"><div class="wrap">
 <div class="fila">
 <p class="frase">Escuchamos tu situación, te explicamos tus opciones con palabras simples y te acompañamos en cada paso, en San Salvador de Jujuy, en El Carmen y en toda la provincia.</p>
-{arco('equipo', [700, 1200], '(max-width:900px) 80vw, 440px', 'Las tres abogadas del Estudio GM & Asociados, juntas y sonriendo', pos='50% 30%', ar='1/1.05', w=700, h=735)}
+{cuadro('equipo', [700, 1200], '(max-width:900px) 85vw, 440px', 'Las tres abogadas del Estudio GM & Asociados, juntas y sonriendo', pos='50% 30%', ar='1/1.08', w=700, h=756)}
 </div>
 <dl class="datos">
 <div><dt>Especialidad</dt><dd>Derecho empresarial: marcas, patentes, sociedades y contratos.</dd></div>
@@ -286,7 +293,7 @@ def home():
 
 <section id="areas"><div class="wrap areas-grid">
 <div class="pegada"><h2>En qué podemos ayudarte</h2><p class="bajada" style="margin:18px 0 36px;color:var(--suave)">Cada situación es distinta. Estas son las áreas en las que trabajamos todos los días.</p>
-{arco('oficina-roja', [700, 1200], '(max-width:900px) 80vw, 400px', 'Las abogadas del Estudio trabajando en la oficina de paredes bordó', pos='40% 50%', w=700, h=875)}</div>
+{cuadro('oficina-roja', [700, 1200], '(max-width:900px) 85vw, 400px', 'Las abogadas del Estudio trabajando en la oficina de paredes bordó', pos='40% 50%')}</div>
 <ul class="lista-areas">{areas}</ul>
 </div></section>
 
@@ -302,8 +309,8 @@ def home():
 <section class="sedes" id="sedes"><div class="wrap">
 <div class="cab"><h2>Dos sedes en Jujuy</h2><p class="bajada">Te atendemos en persona o a distancia, como te resulte más cómodo.</p></div>
 <div class="mosaico">
-<figure>{pic('reunion', [700, 1200], '(max-width:700px) 92vw, 720px', 'Reunión de trabajo de las abogadas en la oficina del Estudio', w=1200, h=817).replace('{p}', p)}</figure>
-<figure>{pic('estudio-lectura', [700, 1200], '(max-width:700px) 92vw, 480px', 'Dra. Fernanda M. Tapia leyendo un expediente en su escritorio', w=1200, h=800).replace('{p}', p)}</figure>
+{cuadro('reunion', [700, 1200], '(max-width:700px) 92vw, 1000px', 'Reunión de trabajo de las abogadas en la oficina del Estudio', ar='16/9', w=1200, h=675)}
+{retrato('circ-tapia-lectura', 'Dra. Fernanda M. Tapia leyendo un expediente en su escritorio', extra='flota', sizes='300px')}
 </div>
 <div class="dos-sedes">
 <div class="sede"><h3>San Salvador de Jujuy</h3><address>Independencia 658, 1er piso, oficina 1<br>San Salvador de Jujuy, Jujuy</address>{mapa('Independencia 658, San Salvador de Jujuy, Jujuy, Argentina', 'Mapa de la sede San Salvador de Jujuy')}<a class="ir" href="https://www.google.com/maps/search/?api=1&amp;query=Independencia+658+San+Salvador+de+Jujuy" target="_blank" rel="noopener">Cómo llegar en Google Maps</a></div>
@@ -417,7 +424,7 @@ def english():
                       breadcrumb([("Inicio", f"{BASE}/"), ("English", f"{BASE}/en/")])])
     wa_en = wa("Hello, I am writing from another country and need legal help in Jujuy, Argentina.")
     team = "".join(f"""<article class="abogada">
-{arco(e['img'], [480, 900], '(max-width:800px) 90vw, 470px', e['alt'], pos=e['pos'])}
+{retrato('circ-' + e['img'][4:], e['alt'], 'M.P. ' + e['mp'])}
 <div class="sube"><h3>{e['nombre']}</h3><p class="mp">Lawyer · Professional registration {e['mp']}</p>
 <a class="btn" href="{wa('Hello, I would like to talk with ' + e['corto'] + '.')}" target="_blank" rel="noopener">{I_WA}Message {e['corto']}</a></div>
 </article>""" for e in EQUIPO).replace("{p}", p)
@@ -457,7 +464,7 @@ def english():
 
 <section id="areas"><div class="wrap areas-grid">
 <div class="pegada"><h2>Practice areas</h2>
-{arco('oficina-roja', [700, 1200], '(max-width:900px) 80vw, 400px', 'The lawyers working at the GM & Asociados office', pos='40% 50%', w=700, h=875).replace('{p}', p)}</div>
+{cuadro('oficina-roja', [700, 1200], '(max-width:900px) 85vw, 400px', 'The lawyers working at the GM & Asociados office', pos='40% 50%')}</div>
 <ul class="lista-areas">{arow}</ul>
 </div></section>
 
