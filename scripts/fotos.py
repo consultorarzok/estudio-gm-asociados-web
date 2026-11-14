@@ -43,7 +43,7 @@ save(grade(Image.open(SRC+'g1.jpg').convert('RGB')),'portada-equipo',[900,1600,2
 def circ(src, box, name):
     im=grade(Image.open(SRC+src).convert('RGB').crop(box))
     save(im, name, [400, 760])
-circ('fer3.jpg',(440,0,900,460),'circ-tapia')
-circ('l.jpg',(347,0,827,480),'circ-gutierrez')
-circ('carla3.jpg',(366,25,1716,1375),'circ-morales')
-circ('fer4.jpg',(530,20,1330,820),'circ-tapia-lectura')
+circ('fer3.jpg',(380,0,960,580),'circ-tapia')
+circ('l.jpg',(287,0,887,600),'circ-gutierrez')
+circ('carla3.jpg',(191,0,1891,1700),'circ-morales')
+circ('fer4.jpg',(430,0,1430,1000),'circ-tapia-lectura')

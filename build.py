@@ -104,6 +104,15 @@ def cuadro(name, widths, sizes, alt, pos=None, ar="4/5", w=700, h=875, extra="")
     """Foto de EQUIPO: rectángulo con sombra y marco dorado desplazado."""
     return f'<figure class="cuadro revela {extra}" style="--ar:{ar}"><div class="foto para">{pic(name, widths, sizes, alt, pos=pos, w=w, h=h)}</div></figure>'
 
+def carrusel(items, label):
+    """Carrusel infinito de fotos de EQUIPO: altura fija, ancho natural (no se recorta nada)."""
+    def fig(n, alt, w, h, dup):
+        im = pic(n, [700, 1200], "(max-width:700px) 80vw, 520px", "" if dup else alt, w=w, h=h).replace(' loading="lazy"', '')
+        return f'<figure class="slide"{" aria-hidden=\"true\"" if dup else ""}>{im}</figure>'
+    uno = "".join(fig(*i, False) for i in items)
+    dos = "".join(fig(*i, True) for i in items)
+    return f'<div class="carrusel" role="group" aria-label="{esc(label)}"><div class="pista">{uno}{dos}</div></div>'
+
 ARO = '<svg class="aro2" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="49.3"/></svg>'
 
 def retrato(name, alt, chapa=None, extra="", sizes="(max-width:800px) 80vw, 420px"):
@@ -167,7 +176,7 @@ def header(depth, lang="es"):
     nav = "".join(f'<a href="{h}">{t}</a>' for h, t in links)
     return f"""<a class="skip" href="#main">{skip}</a>
 <header class="top"><div class="wrap bar">
-<a class="marca" href="{home}"><span class="logos"><img class="l-blanco" src="{p}img/logo-gm-blanco.png" alt="" width="50" height="50"><img class="l-color" src="{p}img/logo-gm.png" alt="" width="50" height="47"></span><span>Estudio Jurídico<br>GM &amp; Asociados</span></a>
+<a class="marca" href="{home}" aria-label="Estudio Jurídico GM &amp; Asociados"><span class="logos"><img class="l-blanco" src="{p}img/logo-gm-blanco.png" alt="" width="50" height="50"><img class="l-color" src="{p}img/logo-gm.png" alt="" width="50" height="47"></span></a>
 <button class="abrir" type="button" aria-expanded="false" aria-controls="menu"><span></span><b class="sr">{menu}</b></button>
 <nav class="menu" id="menu" aria-label="{'Principal' if lang == 'es' else 'Main'}">{nav}<a class="idioma" href="{otro[0]}" hreflang="{otro[1]}" lang="{otro[1]}">{otro[2]}</a><a class="btn sm" href="{WA_GENERAL}" target="_blank" rel="noopener">{I_WA}{cta}</a></nav>
 </div></header>
@@ -249,6 +258,7 @@ FAQ = [
 
 def home():
     global P
+    carrusel_es = carrusel([('equipo','Las tres abogadas del Estudio GM & Asociados, juntas y sonriendo',1200,1074),('oficina-roja','Las abogadas del Estudio trabajando en la oficina de paredes bordó',1200,956),('reunion','Reunión de trabajo de las abogadas en la oficina del Estudio',1200,817)],'Fotos del equipo')
     p = P = ""
     abogadas = "".join(f"""<article class="abogada">
 {retrato('circ-' + e['img'][4:], e['alt'], 'M.P. ' + e['mp'])}
@@ -277,14 +287,14 @@ def home():
 <section class="manifiesto"><div class="wrap">
 <div class="fila">
 <p class="frase">Escuchamos tu situación, te explicamos tus opciones con palabras simples y te acompañamos en cada paso, en San Salvador de Jujuy, en El Carmen y en toda la provincia.</p>
-{cuadro('equipo', [700, 1200], '(max-width:900px) 85vw, 440px', 'Las tres abogadas del Estudio GM & Asociados, juntas y sonriendo', pos='50% 30%', ar='1/1.08', w=700, h=756)}
 </div>
 <dl class="datos">
 <div><dt>Especialidad</dt><dd>Derecho empresarial: marcas, patentes, sociedades y contratos.</dd></div>
 <div><dt>Dos sedes</dt><dd>San Salvador de Jujuy y El Carmen, con atención en toda la provincia.</dd></div>
 <div><dt>También a distancia</dt><dd>Consultas por WhatsApp y correo, desde otra provincia o desde otro país.</dd></div>
 </dl>
-</div></section>
+</div>
+<div class="carrusel-caja">{carrusel_es}</div></section>
 
 <section class="papel" id="abogadas"><div class="wrap">
 <div class="cab"><h2>Las abogadas del Estudio</h2><p class="bajada">Elegí con quién querés hablar. Todas las consultas llegan al WhatsApp del Estudio y te responde la abogada que elegiste.</p></div>
@@ -292,8 +302,7 @@ def home():
 </div></section>
 
 <section id="areas"><div class="wrap areas-grid">
-<div class="pegada"><h2>En qué podemos ayudarte</h2><p class="bajada" style="margin:18px 0 36px;color:var(--suave)">Cada situación es distinta. Estas son las áreas en las que trabajamos todos los días.</p>
-{cuadro('oficina-roja', [700, 1200], '(max-width:900px) 85vw, 400px', 'Las abogadas del Estudio trabajando en la oficina de paredes bordó', pos='40% 50%')}</div>
+<div class="pegada"><h2>En qué podemos ayudarte</h2><p class="bajada" style="margin:18px 0 36px;color:var(--suave)">Cada situación es distinta. Estas son las áreas en las que trabajamos todos los días.</p></div>
 <ul class="lista-areas">{areas}</ul>
 </div></section>
 
@@ -309,8 +318,7 @@ def home():
 <section class="sedes" id="sedes"><div class="wrap">
 <div class="cab"><h2>Dos sedes en Jujuy</h2><p class="bajada">Te atendemos en persona o a distancia, como te resulte más cómodo.</p></div>
 <div class="mosaico">
-{cuadro('reunion', [700, 1200], '(max-width:700px) 92vw, 1000px', 'Reunión de trabajo de las abogadas en la oficina del Estudio', ar='16/9', w=1200, h=675)}
-{retrato('circ-tapia-lectura', 'Dra. Fernanda M. Tapia leyendo un expediente en su escritorio', extra='flota', sizes='300px')}
+{retrato('circ-tapia-lectura', 'Dra. Fernanda M. Tapia leyendo un expediente en su escritorio', sizes='300px')}
 </div>
 <div class="dos-sedes">
 <div class="sede"><h3>San Salvador de Jujuy</h3><address>Independencia 658, 1er piso, oficina 1<br>San Salvador de Jujuy, Jujuy</address>{mapa('Independencia 658, San Salvador de Jujuy, Jujuy, Argentina', 'Mapa de la sede San Salvador de Jujuy')}<a class="ir" href="https://www.google.com/maps/search/?api=1&amp;query=Independencia+658+San+Salvador+de+Jujuy" target="_blank" rel="noopener">Cómo llegar en Google Maps</a></div>
@@ -418,6 +426,7 @@ def area_page(a):
 def english():
     global P
     p = P = "../"
+    carrusel_en = carrusel([('equipo','The three lawyers of GM & Asociados, together and smiling',1200,1074),('oficina-roja','The lawyers working at the GM & Asociados office',1200,956),('reunion','The lawyers in a team meeting at the office',1200,817)],'Team photos')
     title = "Lawyers in Jujuy, Argentina | GM & Asociados Law Firm"
     desc = "Law firm in San Salvador de Jujuy and El Carmen, Argentina. Legal help for foreigners, companies and Argentines abroad: trademarks, companies, inheritance, property."
     sch = schema_org([{"@type": "WebPage", "@id": f"{BASE}/en/#page", "url": f"{BASE}/en/", "name": title, "description": desc, "inLanguage": "en", "isPartOf": {"@id": f"{BASE}/#web"}, "about": {"@id": f"{BASE}/#estudio"}},
@@ -463,15 +472,14 @@ def english():
 </div></section>
 
 <section id="areas"><div class="wrap areas-grid">
-<div class="pegada"><h2>Practice areas</h2>
-{cuadro('oficina-roja', [700, 1200], '(max-width:900px) 85vw, 400px', 'The lawyers working at the GM & Asociados office', pos='40% 50%')}</div>
+<div class="pegada"><h2>Practice areas</h2></div>
 <ul class="lista-areas">{arow}</ul>
 </div></section>
 
 <section class="papel" id="team"><div class="wrap">
 <div class="cab"><h2>Our team</h2><p class="bajada">Three lawyers registered in the Province of Jujuy.</p></div>
 {team}
-</div></section>
+</div><div class="carrusel-caja">{carrusel_en}</div></section>
 
 <section class="cierre" id="contact"><div class="wrap sube">
 <h2>Tell us what you need.</h2>
